@@ -20,41 +20,41 @@ import java.util.*;
 public class PowerSet {
 
     // this generates all possible sub-sequence for the passed list.
-    public static Set<List<Integer>> allSubsequences(final List<Integer> value, Set<List<Integer>> set){
+    public static <T> Set<List<T>> allSubsequences(final List<T> value, Set<List<T>> set){
         if (value.size() == 1 ){
-            Set<List<Integer>> temp = new HashSet<>(set);
+            Set<List<T>> temp = new HashSet<>(set);
             temp.add(Collections.singletonList(value.get(0)));
             // append this element to the end of every list in the set.
-            for (List<Integer> s: set) {
-                List<Integer> k = new ArrayList<>(s);
+            for (List<T> s: set) {
+                List<T> k = new ArrayList<>(s);
                 k.add(value.get(0));
                 temp.add(k);
             }
             return new HashSet<>(temp);
         }
         // put every element of the list except the first one.
-        final List<Integer> exceptFirst = getSubList(value, 1);
-        Set<List<Integer>> left = allSubsequences(exceptFirst, getCopy(set));
+        final List<T> exceptFirst = getSubList(value, 1);
+        Set<List<T>> left = allSubsequences(exceptFirst, getCopy(set));
 
-        Set<List<Integer>> temp = new HashSet<>(); //make this loop go at least once.
+        Set<List<T>> temp = new HashSet<>(); //make this loop go at least once.
         temp.add(Collections.singletonList(value.get(0)));
-        for (List<Integer> s: set) {
-            List<Integer> k = new ArrayList<>(s);
+        for (List<T> s: set) {
+            List<T> k = new ArrayList<>(s);
             k.add(value.get(0));
             temp.add(k);
         }
-        Set<List<Integer>> right = allSubsequences(exceptFirst, temp);
+        Set<List<T>> right = allSubsequences(exceptFirst, temp);
 
         left.addAll(right);
         return left;
     }
 
-    private static Set<List<Integer>> getCopy(Set<List<Integer>> prev){
+    private static <T> Set<List<T>> getCopy(Set<List<T>> prev){
         return new HashSet<>(prev);
     }
 
-    private static List<Integer> getSubList(List<Integer> prev, int start){
-        List<Integer> val = new ArrayList<>();
+    private static<T> List<T> getSubList(List<T> prev, int start){
+        List<T> val = new ArrayList<>();
         for (int i = start; i < prev.size(); i++) {
             val.add(prev.get(i));
         }
