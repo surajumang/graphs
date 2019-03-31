@@ -15,7 +15,7 @@ package orange;
  *
  * @author sjkumar
  */
-class Modulo{
+public class Modulo{
     private static final int MOD = 1000_000_007;
     private int current = 0;
 
