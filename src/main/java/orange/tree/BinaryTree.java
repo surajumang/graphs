@@ -1,6 +1,7 @@
 package orange.tree;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -36,6 +37,15 @@ public class BinaryTree<TYPE extends Comparable<TYPE>> {
         root = null;
     }
 
+    @SafeVarargs
+    public final void insertAll(TYPE... items){
+        insertAll(Arrays.asList(items));
+    }
+
+    public void insertAll(List<TYPE> list){
+        list.forEach(this::insert);
+    }
+
     /*
     * Simple traversal, will only print the values using the toString method.*/
     public void inorderTraversal(){
@@ -68,6 +78,31 @@ public class BinaryTree<TYPE extends Comparable<TYPE>> {
         inorderTraversal(node.right, consumer);
     }
 
+    public void preOrderTraversal(){
+        preOrderTraversal(System.out::println);
+    }
+
+    public List<TYPE> fillInPreOrder(){
+        final List<TYPE> in = new ArrayList<>();
+        Consumer<TYPE> addingInListConsumer = (in::add);
+        preOrderTraversal(addingInListConsumer);
+        return in;
+    }
+
+    private void preOrderTraversal(Consumer<TYPE> consumer) {
+        preOrderTraversal(root, consumer);
+    }
+
+    public void preOrderTraversal(final Node<TYPE> subRoot, Consumer<TYPE> consumer){
+        //root -> left -> right
+        if (subRoot == null){
+            return;
+        }
+        consumer.accept(subRoot.data);
+        preOrderTraversal(subRoot.left, consumer);
+        preOrderTraversal(subRoot.right, consumer);
+    }
+
     /*Start with root of the Tree and find a proper place for the element*/
     public BinaryTree insert(TYPE element){
         /*First entry in the tree*/
@@ -89,6 +124,23 @@ public class BinaryTree<TYPE extends Comparable<TYPE>> {
             root.right = insert(root.right, element);
         }
         return root;
+    }
+
+    public boolean find(TYPE element){
+        return findNode(root, element) != null;
+    }
+
+    private Node<TYPE> findNode(Node<TYPE> root, TYPE element){
+        if (root == null){
+            return null;
+        }
+        if (root.data.compareTo(element) == 0){
+            return root;
+        }
+        if (element.compareTo(root.data) <= 0){
+            return findNode(root.left, element);
+        }
+        return findNode(root.right, element);
     }
 
 }
