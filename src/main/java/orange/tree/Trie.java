@@ -20,18 +20,16 @@ import java.util.stream.Collectors;
  */
 public class Trie {
 
-    /*
-    * Case insensitive Characters to be stored in the Children in lexicographical order*/
     static class Node{
         private Character value;
         private Node [] children = new Node[26];
         private boolean isCompleteWord = false;
 
-        public Node(Character value) {
+        Node(Character value) {
             this.value = value;
         }
 
-        public Character getValue() {
+        Character getValue() {
             return value;
         }
 
@@ -42,21 +40,19 @@ public class Trie {
         Optional<Node> getChildNodeContaining(Character ch){
             ch = Character.toLowerCase(ch);
             int placeValue = ch - 'a';
-//            return Arrays.stream(children).filter(this::isValueEqual).findFirst();
             return Optional.ofNullable(children[placeValue]);
         }
 
         void addChild(Node child){
             Character character = child.getValue();
             int placeValue = Character.toLowerCase(character) - 'a';
-            //find proper place for child, and then add.'a'->0 'b'->1 and so on.
             if (children[placeValue] != null){
                 throw new RuntimeException("Trying to rewrite a node's value.");
             }
             children[placeValue] = child;
         }
 
-        public boolean isCompleteWord() {
+        boolean isCompleteWord() {
             return isCompleteWord || allChildrenNull();
         }
 
@@ -64,7 +60,7 @@ public class Trie {
             return Arrays.stream(children).allMatch(Objects::isNull);
         }
 
-        public void setCompleteWord(boolean completeWord) {
+        void setCompleteWord(boolean completeWord) {
             isCompleteWord = completeWord;
         }
     }
@@ -75,13 +71,10 @@ public class Trie {
         root = new Node(' ');
     }
 
-    /*
-    * Adding to the Trie involves finding the right spot for addition first.*/
-    public void add(String string){
+    public Trie add(String string){
         addRecursively(root, string);
+        return this;
     }
-    //if sub-root contains the first character of the string, then extract that character and recurse for
-    // that child.
     private void addRecursively(Node subRoot, String string){
         if ("".equals(string)){
             return;
@@ -99,11 +92,7 @@ public class Trie {
         }
     }
 
-    /*Search to the Node having the end of the prefix and then return all the possible Strings from that Node.
-    * Need to append the prefix to all the returned string.*/
     List<String> getAll(String prefix){
-        //traverse till the end of prefix and get the last node.
-
         return getAll(traverseUpto(root, prefix), prefix.substring(0, prefix.length() -1));
     }
 
@@ -117,9 +106,8 @@ public class Trie {
             return Collections.singletonList("");
         }
         if (subRoot.isCompleteWord()){
-            allStrings.add(String.valueOf(subRoot.getValue()));
+            allStrings.add(prefix + subRoot.getValue());
         }
-        // for each non null child of the Sub-root recurse
         allStrings.addAll(Arrays.stream(subRoot.children)
                 .filter(Objects::nonNull)
                 .map(this::getAll)
@@ -132,6 +120,9 @@ public class Trie {
     private Node traverseUpto(Node subTree, String prefix){
         if ("".equals(prefix)){
             return subTree;
+        }
+        if (subTree == null){
+            return null;
         }
         return traverseUpto(subTree.getChildNodeContaining(prefix.charAt(0)).orElse(null), prefix.substring(1));
     }
