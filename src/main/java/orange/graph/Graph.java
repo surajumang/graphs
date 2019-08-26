@@ -10,6 +10,8 @@
  */
 package orange.graph;
 
+import java.util.Set;
+
 /**
  * Created 8/26/2019
  *
@@ -23,5 +25,27 @@ package orange.graph;
 * The edges could be weighted or unweighted, directed or Undirected. (Separate base classes should take care)
 * While querying We will need size of vertices and edges.
 * Whether there is an edge between two given vertices*/
-public interface Graph {
+
+public interface Graph<T> {
+    interface Vertex<T>{
+        T getData();
+        Integer getId();
+    }
+
+    interface Edge<T>{
+        Vertex<T> getFirst();
+        Vertex<T> getSecond();
+    }
+
+    interface WeightedEdge<T, W> extends Edge<T> {
+        W getWeight();
+    }
+    /*Means that the edge is from first to second vertex, and not vice-versa*/
+    interface DirectedEdge<T> extends Edge<T>{
+    }
+
+    Set<? extends Vertex<T>> getVertices();
+    Set<? extends Edge<T>> getEdges();
+    /*Get all the Immediate Neighbours*/
+    Set<? extends Vertex<T>> getNeighbours(Vertex<T> source);
 }
