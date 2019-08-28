@@ -1,4 +1,4 @@
-package orange.tree;
+package orange.tree.algorithm;
 // https://blog.anudeep2011.com/persistent-segment-trees-explained-with-spoj-problems/
 
 /*Think about removing the Comparable Restriction.

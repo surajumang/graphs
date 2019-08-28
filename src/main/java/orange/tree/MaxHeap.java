@@ -15,5 +15,7 @@ package orange.tree;
  *
  * @author sjkumar
  */
-public class MaxHeap {
+public interface MaxHeap<T> extends Heap<T> {
+    T extractMax();
+    T max();
 }

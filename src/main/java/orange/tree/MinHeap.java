@@ -15,5 +15,7 @@ package orange.tree;
  *
  * @author sjkumar
  */
-public class MinHeap {
+public interface MinHeap<T> extends Heap<T> {
+    T extractMin();
+    T min();
 }

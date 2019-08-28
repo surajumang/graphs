@@ -1,6 +1,6 @@
 package orange.tree;
 
-import org.assertj.core.api.Assertions;
+import orange.tree.algorithm.SegmentTree;
 import org.junit.Test;
 
 import java.util.Arrays;

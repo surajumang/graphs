@@ -8,7 +8,7 @@
  * such Confidential Information and shall use it only in accordance with
  * the terms of an agreement between you and CZen.
  */
-package orange.tree;
+package orange.tree.algorithm;
 
 /**
  * Created 8/25/2019
