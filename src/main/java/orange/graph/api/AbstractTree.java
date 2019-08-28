@@ -10,28 +10,18 @@
  */
 package orange.graph.api;
 
-import orange.graph.api.Graph;
-
-import java.util.function.Consumer;
-
 /**
- * Created 8/26/2019
+ * Created 8/28/2019
  *
  * @author sjkumar
  */
-
-/*
-* A tree is acyclic with exactly N-1 edges */
-public interface Tree<T> extends DirectedAcyclicGraph<T> {
-    Vertex<T> getRoot();
-
-
-    //max distance from root to any leaf
-    default int getHeight(){
-        return 0;
+public abstract class AbstractTree<T> extends AbstractDirectedAcyclicGraph<T> {
+    public AbstractTree(int vertices, boolean cycleCheck) {
+        super(vertices, vertices-1, cycleCheck);
     }
 
-    void preOrderTraversal(Consumer<Vertex<T>> vertexConsumer);
-
-    Vertex<T> getLCA(Vertex<T> first, Vertex<T> second);
+    // cycle check is turned off by default.
+    public AbstractTree(int vertices){
+        this(vertices, false);
+    }
 }

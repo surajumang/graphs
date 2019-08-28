@@ -19,16 +19,23 @@ import java.util.Set;
  *
  * @author sjkumar
  */
-public class AbstractDirectedAcyclicGraph<T> extends AbstractGraph<T> implements DirectedAcyclicGraph<T> {
+public abstract class AbstractDirectedAcyclicGraph<T> extends AbstractGraph<T> implements DirectedAcyclicGraph<T> {
+
+    private boolean cycleCheck;
+
+    public AbstractDirectedAcyclicGraph(int vertices, int edges, boolean cycleCheck){
+        super(vertices, edges);
+        this.cycleCheck = cycleCheck;
+    }
 
     public AbstractDirectedAcyclicGraph(int vertices, int edges) {
-        super(vertices, edges);
+        this(vertices, edges, true);
     }
 
     /* this will add a directed edge from first to second*/
     @Override
     public void addEdge(Vertex<T> first, Vertex<T> second) {
-
+        //todo
     }
 
     @Override
