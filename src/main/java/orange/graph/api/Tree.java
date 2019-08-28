@@ -12,6 +12,8 @@ package orange.graph.api;
 
 import orange.graph.api.Graph;
 
+import java.util.function.Consumer;
+
 /**
  * Created 8/26/2019
  *
@@ -19,9 +21,18 @@ import orange.graph.api.Graph;
  */
 
 // todo : should extend DirectedAcyclic graph.
-public interface Tree<T> extends Graph<T> {
+/*
+* A tree is acyclic with*/
+public interface Tree<T> extends DirectedAcyclicGraph<T> {
     Vertex<T> getRoot();
-    int getHeight();
-    void preOrderTraversal();
-    Vertex<T> getLCA();
+
+
+    //max distance from root to any leaf
+    default int getHeight(){
+        return 0;
+    }
+
+    void preOrderTraversal(Consumer<Vertex<T>> vertexConsumer);
+
+    Vertex<T> getLCA(Vertex<T> first, Vertex<T> second);
 }

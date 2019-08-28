@@ -31,16 +31,18 @@ public class SimpleGraph extends AbstractGraph<Integer> implements DirectedAcycl
         this.adjacencyList = new HashMap<>();
     }
     // adds an edge from first to second only {making it a directed edge}
-    @Override
     public void addEdge(int first, int second){
-        Vertex<Integer> v = new Vertices.SimpleVertex<>(first);
-        Vertex<Integer> v2 = new Vertices.SimpleVertex<>( second);
-        Edge edge = new Edges.SimpleEdge(first, second);
+        addEdge(new Vertices.SimpleVertex<>(first), new Vertices.SimpleVertex<>(second));
+    }
+
+    @Override
+    public void addEdge(Vertex<Integer> first, Vertex<Integer> second){
+        Edge edge = new Edges.SimpleEdge(first.getId(), second.getId());
         edges.add(edge);
         List<Vertex<Integer>> neighbour  = new ArrayList<>();
-        neighbour.add(v2);
+        neighbour.add(second);
 
-        adjacencyList.merge(v, neighbour, (n1, n2) -> {n1.addAll(n2); return n1;});
+        adjacencyList.merge(first, neighbour, (n1, n2) -> {n1.addAll(n2); return n1;});
     }
 
     @Override

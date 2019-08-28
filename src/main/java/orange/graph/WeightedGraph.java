@@ -10,8 +10,6 @@
  */
 package orange.graph;
 
-import orange.graph.api.Graph;
-
 import java.util.Set;
 
 /**
@@ -26,7 +24,7 @@ public class WeightedGraph<T> extends AbstractGraph<T> {
     }
 
     @Override
-    public void addEdge(int first, int second) {
+    public void addEdge(Vertex<T> first, Vertex<T> second) {
 
     }
 

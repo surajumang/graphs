@@ -47,6 +47,7 @@ public interface Graph<T> {
 
     Set<? extends Vertex<T>> getVertices();
     Set<? extends Edge> getEdges();
+    void addEdge(Vertex<T> first, Vertex<T> second);
     /*Get all the Immediate Neighbours*/
     Set<? extends Vertex<T>> getNeighbours(Vertex<T> source);
 

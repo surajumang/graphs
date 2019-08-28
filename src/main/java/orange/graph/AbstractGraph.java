@@ -31,8 +31,6 @@ public abstract class AbstractGraph<T> implements Graph<T> {
         IntStream.range(1, vertices+1).forEach(num-> this.vertices.add(new Vertices.SimpleVertex<>( num)));
         this.edges = new HashSet<>(edges);
     }
-    // adds an edge from first to second only
-    public abstract void addEdge(int first, int second);
 
     @Override
     public Set<? extends Vertex<T>> getVertices() {
