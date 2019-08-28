@@ -21,7 +21,8 @@ import java.util.Set;
 public interface DirectedAcyclicGraph<T> extends Graph<T> {
     // a delegate/ internal graph, so that we get the existing directed graph properties and
     // we can simply focus on making sure that this doesn't have any cycles.
-
+    // this can be achieved using Disjoint Data structures (throw some Exception at an attempt to
+    // add an edge which introduces a cycle).
     List<? extends Vertex<T>> topologicalSort();
     int inDegree(Vertex<T> vertex);
 

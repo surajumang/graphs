@@ -32,20 +32,20 @@ public interface Graph<T> {
         Integer getId();
     }
 
-    interface Edge<T>{
-        Vertex<T> getFirst();
-        Vertex<T> getSecond();
+    interface Edge{
+        Integer getFirst();
+        Integer getSecond();
     }
 
-    interface WeightedEdge<T, W> extends Edge<T> {
+    interface WeightedEdge<W> extends Edge {
         W getWeight();
     }
     /*Means that the edge is from first to second vertex, and not vice-versa*/
-    interface DirectedEdge<T> extends Edge<T>{
+    interface DirectedEdge extends Edge{
     }
 
     Set<? extends Vertex<T>> getVertices();
-    Set<? extends Edge<T>> getEdges();
+    Set<? extends Edge> getEdges();
     /*Get all the Immediate Neighbours*/
     Set<? extends Vertex<T>> getNeighbours(Vertex<T> source);
 }

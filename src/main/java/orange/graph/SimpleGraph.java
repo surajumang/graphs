@@ -11,42 +11,31 @@
 package orange.graph;
 
 import java.util.*;
-import java.util.stream.IntStream;
 
 /**
  * Created 8/26/2019
  *
  * @author sjkumar
  */
-public class SimpleGraph implements Graph<Integer> {
+public class SimpleGraph extends AbstractGraph<Integer> {
+
+    private Map<Vertex<Integer>, List<Vertex<Integer>>> adjacencyList;
 
     public SimpleGraph(int vertices, int edges) {
-        this.vertices = new HashSet<>(vertices);
-        // add integers unto (1 to vertices) to the set of vertices.
-        IntStream.range(1, vertices+1).forEach(num-> this.vertices.add(new SimpleVertex( num)));
-        this.edges = new HashSet<>(edges);
+        super(vertices, edges);
         this.adjacencyList = new HashMap<>();
     }
     // adds an edge from first to second only
+    @Override
     public void addEdge(int first, int second){
-        Vertex<Integer> v = new SimpleVertex( first);
-        Vertex<Integer> v2 = new SimpleVertex( second);
-        Edge<Integer> edge = new SimpleEdge(v, v2);
+        Vertex<Integer> v = new Vertices.SimpleVertex<>(first);
+        Vertex<Integer> v2 = new Vertices.SimpleVertex<>( second);
+        Edge edge = new Edges.SimpleEdge(first, second);
         edges.add(edge);
         List<Vertex<Integer>> neighbour  = new ArrayList<>();
         neighbour.add(v2);
 
         adjacencyList.merge(v, neighbour, (n1, n2) -> {n1.addAll(n2); return n1;});
-    }
-
-    @Override
-    public Set<? extends Vertex<Integer>> getVertices() {
-        return vertices;
-    }
-
-    @Override
-    public Set<? extends Edge<Integer>> getEdges() {
-        return edges;
     }
 
     @Override
@@ -60,67 +49,6 @@ public class SimpleGraph implements Graph<Integer> {
         return vertices;
     }
 
-    static class SimpleVertex implements Vertex<Integer>{
-        private final Integer data;
-        private final Integer id;
-
-        public SimpleVertex(Integer data, Integer id) {
-            this.data = data;
-            this.id = id;
-        }
-
-        public SimpleVertex(Integer id) {
-            this.id = id;
-            data = 0;
-        }
-
-        @Override
-        public Integer getData() {
-            return data;
-        }
-
-        @Override
-        public Integer getId() {
-            return id;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (!(o instanceof SimpleVertex)) return false;
-            SimpleVertex that = (SimpleVertex) o;
-            return id.equals(that.id);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(id);
-        }
-    }
-    static class SimpleEdge<T> implements Edge<T>{
-        private final Vertex<T> first;
-        private final Vertex<T> second;
-
-        public SimpleEdge(Vertex<T> first, Vertex<T> second) {
-            this.first = first;
-            this.second = second;
-        }
-
-        @Override
-        public Vertex<T> getFirst() {
-            return first;
-        }
-
-        @Override
-        public Vertex<T> getSecond() {
-            return second;
-        }
-    }
-
-    private Set<Vertex<Integer>> vertices;
-    private Map<Vertex<Integer>, List<Vertex<Integer>>> adjacencyList;
-    private Set<Edge<Integer>> edges;
-
     //perform a DFS starting with the given source
     public void performDFS(int source){
         performDFS(source, new BitSet(vertices.size()));
@@ -130,7 +58,7 @@ public class SimpleGraph implements Graph<Integer> {
         // mark source as visited
         visited.set(source);
         System.out.print(source + ",");
-        for (Vertex<Integer> neighbour: getNeighbours(new SimpleVertex(source))) {
+        for (Vertex<Integer> neighbour: getNeighbours(new Vertices.SimpleVertex<>(source))) {
             if (!visited.get(neighbour.getId())){
                 performDFS(neighbour.getId(), visited);
             }
@@ -140,7 +68,7 @@ public class SimpleGraph implements Graph<Integer> {
     public void performBFS(int source){
         List<Vertex<Integer> > vertices = new ArrayList<>();
         BitSet visited = new BitSet(getVertices().size());
-        vertices.add(new SimpleVertex(source));
+        vertices.add(new Vertices.SimpleVertex<>(source));
 
         while (!vertices.isEmpty()){
             // extract and print it if not visited
@@ -148,7 +76,7 @@ public class SimpleGraph implements Graph<Integer> {
             if (!visited.get(node)){
                 visited.set(node);
                 System.out.print(node + ",");
-                vertices.addAll(getNeighbours(new SimpleVertex(node)));
+                vertices.addAll(getNeighbours(new Vertices.SimpleVertex<>(node)));
             }
             vertices.remove(0);
         }

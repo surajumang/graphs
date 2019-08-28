@@ -28,7 +28,7 @@ public class WeightedDirectedGraph<T> implements Graph<T> {
     }
 
     @Override
-    public Set<? extends Edge<T>> getEdges() {
+    public Set<? extends Edge> getEdges() {
         return null;
     }
 

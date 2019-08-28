@@ -10,6 +10,8 @@
  */
 package orange.graph;
 
+import orange.graph.Edges.SimpleEdge;
+
 import java.util.Set;
 
 /**
@@ -18,37 +20,14 @@ import java.util.Set;
  * @author sjkumar
  */
 public class WeightedGraph<T> implements Graph<T> {
-    static class SimpleWeightedEdge implements WeightedEdge<Integer, Integer>{
-        private final SimpleGraph.SimpleEdge<Integer> simpleEdge;
-        private final Integer weight;
 
-        public SimpleWeightedEdge(Vertex<Integer> first, Vertex<Integer> second, Integer weight) {
-            simpleEdge = new SimpleGraph.SimpleEdge<>(first, second);
-            this.weight = weight;
-        }
-
-        @Override
-        public Vertex<Integer> getFirst() {
-            return simpleEdge.getFirst();
-        }
-
-        @Override
-        public Vertex<Integer> getSecond() {
-            return simpleEdge.getSecond();
-        }
-
-        @Override
-        public Integer getWeight() {
-            return weight;
-        }
-    }
     @Override
     public Set<? extends Vertex<T>> getVertices() {
         return null;
     }
 
     @Override
-    public Set<? extends Edge<T>> getEdges() {
+    public Set<? extends Edge> getEdges() {
         return null;
     }
 
