@@ -8,7 +8,11 @@
  * such Confidential Information and shall use it only in accordance with
  * the terms of an agreement between you and CZen.
  */
-package orange.graph;
+package orange.graph.algorithms;
+
+import orange.graph.AbstractGraph;
+import orange.graph.Edges;
+import orange.graph.Vertices;
 
 import java.util.*;
 

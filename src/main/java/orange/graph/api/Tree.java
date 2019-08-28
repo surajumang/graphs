@@ -8,9 +8,9 @@
  * such Confidential Information and shall use it only in accordance with
  * the terms of an agreement between you and CZen.
  */
-package orange.graph;
+package orange.graph.api;
 
-import java.util.Set;
+import orange.graph.api.Graph;
 
 /**
  * Created 8/26/2019

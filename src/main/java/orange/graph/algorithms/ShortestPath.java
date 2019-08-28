@@ -8,12 +8,12 @@
  * such Confidential Information and shall use it only in accordance with
  * the terms of an agreement between you and CZen.
  */
-package orange.graph;
+package orange.graph.algorithms;
 
 /**
  * Created 8/25/2019
  *
  * @author sjkumar
  */
-public class BipartiteMatching {
+public class ShortestPath {
 }

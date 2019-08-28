@@ -10,6 +10,8 @@
  */
 package orange.graph;
 
+import orange.graph.api.Graph;
+
 import java.util.Objects;
 
 /**
@@ -18,7 +20,7 @@ import java.util.Objects;
  * @author sjkumar
  */
 public class Vertices {
-    static class SimpleVertex<T> implements Graph.Vertex<T> {
+    public static class SimpleVertex<T> implements Graph.Vertex<T> {
         private final T data;
         private final Integer id;
 

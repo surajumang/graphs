@@ -10,6 +10,8 @@
  */
 package orange.graph;
 
+import orange.graph.api.Graph;
+
 import java.util.*;
 import java.util.stream.IntStream;
 

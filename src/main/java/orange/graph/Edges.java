@@ -10,13 +10,15 @@
  */
 package orange.graph;
 
+import orange.graph.api.Graph;
+
 /**
  * Created 8/27/2019
  *
  * @author sjkumar
  */
 public class Edges {
-    static class SimpleEdge implements Graph.Edge {
+    public static class SimpleEdge implements Graph.Edge {
         private final Integer first;
         private final Integer second;
 
@@ -36,14 +38,14 @@ public class Edges {
         }
     }
 
-    static class SimpleDirectedEdge extends SimpleEdge implements Graph.DirectedEdge {
+    public static class SimpleDirectedEdge extends SimpleEdge implements Graph.DirectedEdge {
 
         public SimpleDirectedEdge(Integer first, Integer second) {
             super(first, second);
         }
     }
 
-    static class SimpleWeightedEdge implements Graph.WeightedEdge<Integer> {
+    public static class SimpleWeightedEdge implements Graph.WeightedEdge<Integer> {
         private final SimpleEdge simpleEdge;
         private final Integer weight;
 

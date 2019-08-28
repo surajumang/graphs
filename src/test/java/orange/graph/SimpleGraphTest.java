@@ -1,6 +1,6 @@
 package orange.graph;
 
-import org.assertj.core.api.Assertions;
+import orange.graph.algorithms.SimpleGraph;
 import org.junit.Test;
 
 

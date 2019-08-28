@@ -10,7 +10,7 @@
  */
 package orange.graph;
 
-import orange.graph.Edges.SimpleEdge;
+import orange.graph.api.Graph;
 
 import java.util.Set;
 
