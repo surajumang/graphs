@@ -10,7 +10,8 @@
  */
 package orange.graph.api;
 
-import java.util.Set;
+import java.util.*;
+import java.util.function.Consumer;
 
 /**
  * Created 8/26/2019
@@ -50,4 +51,22 @@ public interface Graph<T> {
     Set<? extends Vertex<T>> getNeighbours(Vertex<T> source);
 
     Vertex<T> getVertex(Integer id);
+
+    default void dfs(Vertex<T> source, Consumer<? extends Vertex<T>> vertexConsumer){
+
+    }
+
+    default void bfs(Vertex<T> source, Consumer<Vertex<T>> vertexConsumer){
+        LinkedList<Vertex<T>> vertices = new LinkedList<>();
+        vertices.add(source);
+        BitSet visited = new BitSet(getVertices().size());
+        while (!vertices.isEmpty()){
+            Vertex<T> current = vertices.pollFirst();
+            if (current!= null && !visited.get(current.getId())){
+                visited.set(current.getId());
+                vertexConsumer.accept(current);
+                vertices.addAll(getNeighbours(current));
+            }
+        }
+    }
 }
