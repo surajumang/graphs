@@ -13,6 +13,7 @@ package orange.graph.algorithms;
 import orange.graph.AbstractGraph;
 import orange.graph.Edges;
 import orange.graph.Vertices;
+import orange.graph.api.DirectedAcyclicGraph;
 
 import java.util.*;
 
@@ -21,7 +22,7 @@ import java.util.*;
  *
  * @author sjkumar
  */
-public class SimpleGraph extends AbstractGraph<Integer> {
+public class SimpleGraph extends AbstractGraph<Integer> implements DirectedAcyclicGraph<Integer> {
 
     private Map<Vertex<Integer>, List<Vertex<Integer>>> adjacencyList;
 
@@ -29,7 +30,7 @@ public class SimpleGraph extends AbstractGraph<Integer> {
         super(vertices, edges);
         this.adjacencyList = new HashMap<>();
     }
-    // adds an edge from first to second only
+    // adds an edge from first to second only {making it a directed edge}
     @Override
     public void addEdge(int first, int second){
         Vertex<Integer> v = new Vertices.SimpleVertex<>(first);

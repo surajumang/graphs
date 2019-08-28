@@ -19,10 +19,19 @@ import java.util.Set;
  *
  * @author sjkumar
  */
-public class WeightedDirectedGraph<T> implements Graph<T> {
+public class WeightedDirectedGraph<T> extends AbstractGraph<T> {
     /*TODO : We should be good by simply changing the vertex and Edge implementation.
     * Rethink on including both these as objects.*/
     private WeightedGraph<T> weightedGraph;
+
+    public WeightedDirectedGraph(int vertices, int edges) {
+        super(vertices, edges);
+    }
+
+    @Override
+    public void addEdge(int first, int second) {
+
+    }
 
     @Override
     public Set<? extends Vertex<T>> getVertices() {

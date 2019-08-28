@@ -19,7 +19,16 @@ import java.util.Set;
  *
  * @author sjkumar
  */
-public class WeightedGraph<T> implements Graph<T> {
+public class WeightedGraph<T> extends AbstractGraph<T> {
+
+    public WeightedGraph(int vertices, int edges) {
+        super(vertices, edges);
+    }
+
+    @Override
+    public void addEdge(int first, int second) {
+
+    }
 
     @Override
     public Set<? extends Vertex<T>> getVertices() {

@@ -48,4 +48,6 @@ public interface Graph<T> {
     Set<? extends Edge> getEdges();
     /*Get all the Immediate Neighbours*/
     Set<? extends Vertex<T>> getNeighbours(Vertex<T> source);
+
+    Vertex<T> getVertex(Integer id);
 }

@@ -43,4 +43,13 @@ public abstract class AbstractGraph<T> implements Graph<T> {
     public Set<? extends Edge> getEdges() {
         return edges;
     }
+
+    @Override
+    public Vertex<T> getVertex(Integer id) {
+        for (Vertex<T> vertex: getVertices()) {
+            if (vertex.getId().equals(id))
+                return vertex;
+        }
+        throw new RuntimeException("No vertex with id found " + id);
+    }
 }
