@@ -38,7 +38,7 @@ public interface Graph<T> {
         Integer getSecond();
     }
 
-    interface WeightedEdge<W> extends Edge {
+    interface WeightedEdge<W> extends Edge, Comparable<WeightedEdge<W>> {
         W getWeight();
     }
     /*Means that the edge is from first to second vertex, and not vice-versa*/

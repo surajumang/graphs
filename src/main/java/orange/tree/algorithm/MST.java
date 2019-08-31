@@ -10,13 +10,19 @@
  */
 package orange.tree.algorithm;
 
+import orange.graph.Vertices;
 import orange.graph.api.Graph;
+import orange.graph.api.WeightedGraph;
+import orange.tree.AbstractDisjointSet;
+import orange.tree.DisjointSet;
 import orange.tree.MinHeap;
 import orange.tree.SimpleMinHeap;
 
 import java.util.ArrayList;
 import java.util.BitSet;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created 8/25/2019
@@ -24,27 +30,32 @@ import java.util.List;
  * @author sjkumar
  */
 public class MST {
-    public static <T> void primMST(Graph<T> graph){
+    public static <T> void kruskalMST(WeightedGraph<T, Integer> graph){
         /*
         * Step 1: Initialize the vertex of this graph
         * Step 2: For each edge not in the existing set*/
         // only the edges are supposed to be weighted.
 
         final int graph_size = graph.getVertices().size();
-        MinHeap<Integer> minHeap = new SimpleMinHeap<>();
-        minHeap.build(intialize(graph_size));
+        List<Graph.WeightedEdge<Integer>> edges = new ArrayList<>(graph.getEdges());
+        Collections.sort(edges);
+        List<Integer> vertices = graph.getVertices()
+                .stream()
+                .map(Graph.Vertex::getId)
+                .collect(Collectors.toList());
+        AbstractDisjointSet<Integer> disjointSet = new AbstractDisjointSet<>(vertices);
 
-        BitSet mst = new BitSet(graph_size);
-
-        List<Graph.Vertex<T>> tree = new ArrayList<>(graph_size);
-
-        while (!minHeap.isEmpty()){
-            Integer current = minHeap.extractMin();
-            // add to list
-            graph.getVertex(current)
-                    .ifPresent(tree::add);
-            // for each neighbour of current change their keys in the Heap.
+        for (Graph.WeightedEdge<Integer> wedge: edges) {
+            disjointSet.disjointSetSize();
+            if (!disjointSet.areConnected(wedge.getFirst(), wedge.getSecond())){
+                disjointSet.union(wedge.getFirst(), wedge.getSecond());
+                System.out.println(wedge.getFirst() + "->" + wedge.getSecond() + "-->" +wedge.getWeight());
+            }else {
+                System.out.print("Skipped ");
+                System.out.println(wedge.getFirst() + "->" + wedge.getSecond() + "-->" +wedge.getWeight());
+            }
         }
+
 
     }
 

@@ -45,7 +45,7 @@ public class Edges {
         }
     }
 
-    public static class SimpleWeightedEdge<W> implements Graph.WeightedEdge<W> {
+    public static class SimpleWeightedEdge<W extends Comparable<? super W>> implements Graph.WeightedEdge<W> {
         private final SimpleEdge simpleEdge;
         private final W weight;
 
@@ -54,7 +54,7 @@ public class Edges {
             this.weight = weight;
         }
 
-        public static <W1> SimpleWeightedEdge<W1> create(Integer first, Integer second, W1 weight){
+        public static <W1 extends Comparable<? super W1>> SimpleWeightedEdge<W1> create(Integer first, Integer second, W1 weight){
             return new SimpleWeightedEdge<>(first, second, weight);
         }
 
@@ -71,6 +71,11 @@ public class Edges {
         @Override
         public W getWeight() {
             return weight;
+        }
+
+        @Override
+        public int compareTo(Graph.WeightedEdge<W> o) {
+            return weight.compareTo(o.getWeight());
         }
     }
 }

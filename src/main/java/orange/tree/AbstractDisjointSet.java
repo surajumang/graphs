@@ -79,11 +79,14 @@ public class AbstractDisjointSet<T extends Comparable<? super T>> implements Dis
                 .collect(Collectors.toSet());
     }
 
+    @Override
     public int disjointSetSize(){
         Set<Node<T>> distinct = new HashSet<>();
         for (Node<T> node: disjointSet) {
             distinct.add(node.representative());
         }
+        distinct.forEach(a-> System.out.print(a.data + ", "));
+        System.out.println();
         return distinct.size();
     }
 
@@ -98,11 +101,11 @@ public class AbstractDisjointSet<T extends Comparable<? super T>> implements Dis
 
     @Override
     public void union(T first, T second) {
-        Node<T> node1 = find(first);
-        Node<T> node2 = find(second);
-        if (node1.representative().compareTo(node2.representative()) == 0)
+        Node<T> node1 = find(first).representative();
+        Node<T> node2 = find(second).representative();
+        if (node1.compareTo(node2) == 0)
             return;
-        if (node1.representative().compareTo(node2.representative()) < 0)
+        if (node1.compareTo(node2) < 0)
             node2.setParent(node1);
         else node1.setParent(node2);
     }
