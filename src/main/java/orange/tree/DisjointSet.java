@@ -1,6 +1,7 @@
 package orange.tree;
 
-/*
-* Consider using Collections class it has some built in support for disjoint sets.*/
-public class DisjointSet {
+public interface DisjointSet<T extends Comparable<? super T>> {
+    void union(T first, T second);
+
+    boolean areConnected(T first, T second);
 }
