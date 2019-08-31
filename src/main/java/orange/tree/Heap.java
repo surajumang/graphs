@@ -12,4 +12,8 @@ public interface Heap<T> {
     void add(T element);
 
     boolean isEmpty();
+
+    default void update(T existing, T newer){
+
+    }
 }

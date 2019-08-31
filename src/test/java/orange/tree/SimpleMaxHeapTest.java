@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -52,6 +53,7 @@ public class SimpleMaxHeapTest {
         MinHeap<Node> minHeap = new SimpleMinHeap<>();
         minHeap.build(nodes);
         maxHeap.build(nodes);
+        minHeap.update(Node.create(4), Node.create(44));
         while (!maxHeap.isEmpty()){
             System.out.print(maxHeap.extractMax());
         }

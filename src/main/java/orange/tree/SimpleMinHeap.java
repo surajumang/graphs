@@ -10,6 +10,7 @@
  */
 package orange.tree;
 
+import java.util.Iterator;
 import java.util.TreeSet;
 
 /**
@@ -44,5 +45,21 @@ public class SimpleMinHeap<T extends Comparable<T>> implements MinHeap<T> {
     @Override
     public boolean isEmpty() {
         return treeSet.isEmpty();
+    }
+
+    @Override
+    public void update(T existing, T newer) {
+        Iterator<T> iterator = treeSet.iterator();
+        boolean removed = false;
+        while (iterator.hasNext()){
+            T item = iterator.next();
+            if (item.compareTo(existing) == 0){
+                iterator.remove();
+                removed = true; break;
+            }
+        }
+        if (removed){
+            add(newer);
+        }
     }
 }
