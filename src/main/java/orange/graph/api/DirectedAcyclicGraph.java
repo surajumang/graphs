@@ -40,7 +40,7 @@ public interface DirectedAcyclicGraph<T> extends Graph<T> {
             BitSet visited = new BitSet(graph.getVertices().size());
             for (int i = 0; i < graph.getVertices().size(); i++) {
                 if (!visited.get(i+1)){
-                    dfsLike(graph.getVertex(i+1), visited);
+                    graph.getVertex(i+1).ifPresent(v -> dfsLike(v, visited));
                 }
             }
             Collections.reverse(ordered);

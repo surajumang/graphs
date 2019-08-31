@@ -34,6 +34,10 @@ public class Vertices {
             data = null;
         }
 
+        public static <K> SimpleVertex<K> create(Integer id){
+            return new SimpleVertex<>(id);
+        }
+
         @Override
         public T getData() {
             return data;

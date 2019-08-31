@@ -41,12 +41,9 @@ public class MST {
         while (!minHeap.isEmpty()){
             Integer current = minHeap.extractMin();
             // add to list
-            Graph.Vertex<T> currentVertex = graph.getVertex(current);
-            tree.add(currentVertex);
+            graph.getVertex(current)
+                    .ifPresent(tree::add);
             // for each neighbour of current change their keys in the Heap.
-            for (Graph.Vertex<T> neigh: graph.getNeighbours(currentVertex)) {
-
-            }
         }
 
     }

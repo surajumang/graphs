@@ -24,8 +24,6 @@ import java.util.*;
  */
 public class SimpleGraph extends AbstractGraph<Integer> implements DirectedAcyclicGraph<Integer> {
 
-    private Map<Vertex<Integer>, List<Vertex<Integer>>> adjacencyList;
-
     public SimpleGraph(int vertices, int edges) {
         super(vertices, edges);
         this.adjacencyList = new HashMap<>();
@@ -43,17 +41,6 @@ public class SimpleGraph extends AbstractGraph<Integer> implements DirectedAcycl
         neighbour.add(second);
 
         adjacencyList.merge(first, neighbour, (n1, n2) -> {n1.addAll(n2); return n1;});
-    }
-
-    @Override
-    public Set<? extends Vertex<Integer>> getNeighbours(Vertex<Integer> source) {
-        HashSet<Vertex<Integer>> vertices = new HashSet<>();
-        List<Vertex<Integer>>  cc = adjacencyList.get(source);
-        if (cc == null){
-            return new HashSet<>();
-        }
-        vertices.addAll(cc);
-        return vertices;
     }
 
     //perform a DFS starting with the given source

@@ -45,13 +45,17 @@ public class Edges {
         }
     }
 
-    public static class SimpleWeightedEdge implements Graph.WeightedEdge<Integer> {
+    public static class SimpleWeightedEdge<W> implements Graph.WeightedEdge<W> {
         private final SimpleEdge simpleEdge;
-        private final Integer weight;
+        private final W weight;
 
-        public SimpleWeightedEdge(Integer first, Integer second, Integer weight) {
+        public SimpleWeightedEdge(Integer first, Integer second, W weight) {
             simpleEdge = new SimpleEdge(first, second);
             this.weight = weight;
+        }
+
+        public static <W1> SimpleWeightedEdge<W1> create(Integer first, Integer second, W1 weight){
+            return new SimpleWeightedEdge<>(first, second, weight);
         }
 
         @Override
@@ -65,7 +69,7 @@ public class Edges {
         }
 
         @Override
-        public Integer getWeight() {
+        public W getWeight() {
             return weight;
         }
     }

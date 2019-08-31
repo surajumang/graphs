@@ -51,7 +51,7 @@ public interface Graph<T> {
     /*Get all the Immediate Neighbours*/
     Set<? extends Vertex<T>> getNeighbours(Vertex<T> source);
 
-    Vertex<T> getVertex(Integer id);
+    Optional<Vertex<T>> getVertex(Integer id);
 
     default void dfs(Vertex<T> source, Consumer<? extends Vertex<T>> vertexConsumer){
 
