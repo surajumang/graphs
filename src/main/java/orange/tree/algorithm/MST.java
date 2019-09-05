@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
  * @author sjkumar
  */
 public class MST {
-    public static <T> void kruskalMST(WeightedGraph<T, Integer> graph){
+    public static <T> Integer kruskalMST(WeightedGraph<T, Integer> graph){
         /*
         * Step 1: Initialize the vertex of this graph
         * Step 2: For each edge not in the existing set*/
@@ -45,18 +45,16 @@ public class MST {
                 .collect(Collectors.toList());
         AbstractDisjointSet<Integer> disjointSet = new AbstractDisjointSet<>(vertices);
 
+        Integer weight = 0;
         for (Graph.WeightedEdge<Integer> wedge: edges) {
             disjointSet.disjointSetSize();
             if (!disjointSet.areConnected(wedge.getFirst(), wedge.getSecond())){
                 disjointSet.union(wedge.getFirst(), wedge.getSecond());
-                System.out.println(wedge.getFirst() + "->" + wedge.getSecond() + "-->" +wedge.getWeight());
-            }else {
-                System.out.print("Skipped ");
-                System.out.println(wedge.getFirst() + "->" + wedge.getSecond() + "-->" +wedge.getWeight());
+                weight += wedge.getWeight();
             }
         }
 
-
+        return weight;
     }
 
     private static List<Integer> intialize(int n){

@@ -2,6 +2,7 @@ package orange.tree.algorithm;
 
 import orange.graph.SimpleWeightedGraph;
 import orange.graph.api.WeightedGraph;
+import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -22,6 +23,6 @@ public class MSTTest {
         simpleGraph.addEdge(4,6,5);
         simpleGraph.addEdge(2,4,4);
 
-        MST.kruskalMST(simpleGraph);
+        Assertions.assertThat(MST.kruskalMST(simpleGraph)).isEqualTo(20);
     }
 }
