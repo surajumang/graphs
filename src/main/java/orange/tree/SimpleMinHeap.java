@@ -62,4 +62,8 @@ public class SimpleMinHeap<T extends Comparable<T>> implements MinHeap<T> {
             add(newer);
         }
     }
+
+    public void remove(T existing) {
+        treeSet.removeIf(item -> item.compareTo(existing) == 0);
+    }
 }

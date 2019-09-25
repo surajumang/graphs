@@ -27,6 +27,14 @@ import java.util.function.Consumer;
 * While querying We will need size of vertices and edges.
 * Whether there is an edge between two given vertices*/
 
+/*TODO: 1) Dikstra's SSSP algorithm
+*       2) Bipartite matching using Max flow
+*       3) Max Flow min cut algorithm
+*       4) Change the Max and Min Heap classes to use PriorityQueue
+*       5) Implement AcyclicGraph such that it detects if adding an edge will create a cycle.
+*       6) All pair shortest path algorithm(Bellman-ford)
+*       7) Generate a random graph which can be parsed to create a Graph in Memory.*/
+
 public interface Graph<T> {
     interface Vertex<T>{
         T getData();

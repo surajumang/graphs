@@ -12,63 +12,67 @@ package orange.tree;
 
 
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.*;
-import java.util.function.Consumer;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+        import java.io.InputStreamReader;
+        import java.util.*;
+        import java.util.concurrent.atomic.AtomicInteger;
+        import java.util.function.Consumer;
+        import java.util.stream.Collectors;
+        import java.util.stream.IntStream;
 
 /**
  * Created 9/3/2019
  *
  * @author sjkumar
  */
-public class HRank {
+public class Solution {
     public static void main(String[] args) throws Exception {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        String [] firstLine = reader.readLine().split(" ");
-        Integer N = Integer.parseInt(firstLine[0]);
-        Integer E = Integer.parseInt(firstLine[1]);
+        int q = Integer.parseInt(reader.readLine());
 
-        SimpleWeightedGraph graph = new SimpleWeightedGraph(N, E);
         int i =0;
-        while(i++ < E){
-            String[] vals = reader.readLine().split(" ");
-            int from = Integer.parseInt(vals[0]);
-            int to = Integer.parseInt(vals[1]);
-            int weight = Integer.parseInt(vals[2]);
-            graph.addEdge(from, to, weight);
+        while(i++ < q){
+            String [] firstLine = reader.readLine().split(" ");
+            Integer N = Integer.parseInt(firstLine[0]);
+            Integer E = Integer.parseInt(firstLine[1]);
+            int Clib = Integer.parseInt(firstLine[2]);
+            int Croad = Integer.parseInt(firstLine[3]);
+
+            SimpleWeightedGraph graph = new SimpleWeightedGraph(N, E);
+            int k = 0;
+            while (k++ < E){
+                String[] vals = reader.readLine().split(" ");
+                int from = Integer.parseInt(vals[0]);
+                int to = Integer.parseInt(vals[1]);
+                graph.addEdge(from, to, 0);
+            }
+            if (Clib <= Croad){
+                System.out.println((long) Clib * N);continue;
+            }
+            System.out.println(solve(graph, Clib, Croad));
         }
-        reader.readLine();
-        System.out.println(kruskalMST(graph));
     }
 
-    public static <T> Integer kruskalMST(WeightedGraph<T, Integer> graph){
-        /*
-         * Step 1: Initialize the vertex of this graph
-         * Step 2: For each edge not in the existing set*/
-        // only the edges are supposed to be weighted.
-
-        final int graph_size = graph.getVertices().size();
-        List<Graph.WeightedEdge<Integer>> edges = new ArrayList<>(graph.getEdges());
-        Collections.sort(edges);
-        List<Integer> vertices = graph.getVertices()
-                .stream()
-                .map(Graph.Vertex::getId)
-                .collect(Collectors.toList());
-        AbstractDisjointSet<Integer> disjointSet = new AbstractDisjointSet<>(vertices);
-
-        Integer weight = 0;
-        for (Graph.WeightedEdge<Integer> wedge: edges) {
-            disjointSet.disjointSetSize();
-            if (!disjointSet.areConnected(wedge.getFirst(), wedge.getSecond())){
-                disjointSet.union(wedge.getFirst(), wedge.getSecond());
-                weight += wedge.getWeight();
+    public static long solve(SimpleWeightedGraph graph, int clib, int croad){
+        int N = graph.getVertices().size();
+        BitSet bitSet = new BitSet(N);
+        AtomicInteger sum = new AtomicInteger(0);
+        long finalSum = 0;
+        System.err.println("Start");
+        for (int k=1; k<=N; k++){
+            if (!bitSet.get(k)){ //hasn't been visited
+                graph.bfs(Vertices.SimpleVertex.create(k), v -> {
+                    bitSet.set(v.getId()); // mark visited
+                    sum.incrementAndGet();
+                });
+                System.err.println("Connected component Size " + sum.get());
+                finalSum +=  clib + croad * (sum.get() - 1);
+                sum.set(0);
             }
         }
-
-        return weight;
+        System.err.println("End");
+        return finalSum;
     }
+
 
     public abstract static class AbstractWeightedGraph<T, E> extends AbstractGraph<T> implements WeightedGraph<T, E> {
 
@@ -338,14 +342,16 @@ public class HRank {
 
         @Override
         public void addEdge(Vertex<Integer> first, Vertex<Integer> second, Integer weight) {
-            Edges.SimpleWeightedEdge<Integer> edge = Edges.SimpleWeightedEdge
+            Edges.SimpleWeightedEdge<Integer> edge1 = Edges.SimpleWeightedEdge
                     .create(first.getId(), second.getId(), weight);
-            edges.add(edge);
-            List<WeightedEdge<Integer>> edgeList = new ArrayList<>(Collections.singletonList(edge));
-            edgeMap.merge(first, edgeList, (l1, l2) -> {l1.addAll(l2); return l1;});
-            List<Vertex<Integer>> neighbour = new ArrayList<>(Collections.singletonList(second));
+            edges.add(edge1);
+            List<WeightedEdge<Integer>> edgeList1 = new ArrayList<>(Collections.singletonList(edge1));
+            edgeMap.merge(first, edgeList1, (l1, l2) -> {l1.addAll(l2); return l1;});
 
+            List<Vertex<Integer>> neighbour = new ArrayList<>(Collections.singletonList(second));
+            List<Vertex<Integer>> neighbour2 = new ArrayList<>(Collections.singletonList(first));
             adjacencyList.merge(first, neighbour, (l1, l2) -> {l1.addAll(l2); return l1;});
+            adjacencyList.merge(second, neighbour2, (l1, l2) -> {l1.addAll(l2); return l1;});
         }
 
         public void addEdge(int first, int second, int weight){
