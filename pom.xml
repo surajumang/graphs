@@ -4,9 +4,9 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>orange</groupId>
-  <artifactId>hackereath</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <groupId>com.orange</groupId>
+  <artifactId>hackerearth</artifactId>
+  <version>1.0</version>
 
   <name>hackereath</name>
   <!-- FIXME change it to the project's website -->
@@ -75,6 +75,33 @@
         <plugin>
           <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>3.0.0</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-assembly-plugin</artifactId>
+          <configuration>
+            <descriptorRefs>
+              <descriptorRef>jar-with-dependencies</descriptorRef>
+            </descriptorRefs>
+            <appendAssemblyId>false</appendAssemblyId>
+            <!--<archive>-->
+              <!--<manifest>-->
+                <!--<addClasspath>true</addClasspath>-->
+                <!--&lt;!&ndash; This is main class of your program which will be executed&ndash;&gt;-->
+                <!--<mainClass>com.orange.App</mainClass>-->
+              <!--</manifest>-->
+            <!--</archive>-->
+          </configuration>
+
+          <executions>
+            <execution>
+              <id>make-assembly</id>
+              <phase>package</phase>
+              <goals>
+                <goal>single</goal>
+              </goals>
+            </execution>
+          </executions>
         </plugin>
       </plugins>
     </pluginManagement>
